@@ -1,6 +1,8 @@
 import app from "./server.js"
 import mongodb from "mongodb"
 import dotenv from "dotenv"
+import RestaurantsDAO from "./dao/restaurantsDAO.js"
+import ReviewDAO from "./dao/reviewsDAO.js"
 
 // 환경변수 불러오기
 dotenv.config()
@@ -20,6 +22,8 @@ MongoClient.connect(
     process.exit(1)
 })
 .then(async client => {
+    await RestaurantsDAO.injectDB(client)
+    await ReviewDAO.injectDB(client)
     app.listen(port, ()=>{
         console.group(`listening on port ${port}`)
     })
