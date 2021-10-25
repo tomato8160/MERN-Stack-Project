@@ -10,6 +10,7 @@ const MongoClient = mongodb.MongoClient
 
 const port = process.env.PORT || 8000
 
+// Connect DB
 MongoClient.connect(
     process.env.RESTREVIEW_DB_URI,{
         maxPoolSize:50,
@@ -22,8 +23,14 @@ MongoClient.connect(
     process.exit(1)
 })
 .then(async client => {
+
+    // restaurants DB 커넥션 객체 생성
     await RestaurantsDAO.injectDB(client)
+
+    // review DB 커넥션 객체 생성
     await ReviewDAO.injectDB(client)
+
+    // Open Server
     app.listen(port, ()=>{
         console.group(`listening on port ${port}`)
     })

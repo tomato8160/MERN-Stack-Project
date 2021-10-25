@@ -1,6 +1,7 @@
 import ReviewsDAO from "../dao/reviewsDAO.js"
 
 export default class ReviewsController{
+    // API CREATE
     static async apiPostReview(req, res, next){
         try{
             const restaurantId = req.body.restaurant_id
@@ -19,11 +20,13 @@ export default class ReviewsController{
             date,
         )
         res.json({status: "success"})
+        console.log("create review")
         }catch(e){
             res.status(500).json({error:e.message})
         }
     }
 
+    // API UPDATE
     static async apiUpdateReview(req, res, next){
         try{
             const reviewId = req.body.review_id
@@ -47,18 +50,20 @@ export default class ReviewsController{
                     "unable to update review - user may not be original poster",
                 )
             }
+            console.log("update review")
             res.json({status: "success"})
         }catch(e){
             res.status(500).json({error:e.message})
         }
     }
 
+    //API DELETE
     static async apiDeleteReview(req, res, next){
         try{
             const reviewId = req.query.id
             const userId = req.body.user_id
             console.log(reviewId)
-            const reviewResponse = await ReviewsDAO.DeleteReview(
+            const reviewResponse = await ReviewsDAO.deleteReview(
                 reviewId,
                 userId,
             )

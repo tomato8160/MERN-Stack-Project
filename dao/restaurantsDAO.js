@@ -1,6 +1,7 @@
 let restaurants
 
 export default class RestaurantsDAO{
+    // CONNECTION
     static async injectDB(conn){
         if(restaurants){
             return
@@ -14,6 +15,7 @@ export default class RestaurantsDAO{
         }
     }
 
+    // READ
     static async getRestaurants({
         filters = null,
         page = 0,

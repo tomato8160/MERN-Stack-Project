@@ -29,4 +29,11 @@ export default class RestaruantsController {
         }
         res.json(response)
     }
+
+    static async apiGetResaurantById(req, res, next){
+        try{
+            let id = req.params.id || {}
+            let restaurant = await RestaurantsDAO.getRestaurantByID(id)
+        }
+    }
 }
